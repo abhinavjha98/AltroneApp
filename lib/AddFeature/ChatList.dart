@@ -1,11 +1,12 @@
 import 'package:custom_switch/custom_switch.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:mydrive/AddFeature/ChatList.dart';
+import 'package:mydrive/AddFeature/ShowFilesFolder.dart';
 import 'package:mydrive/Helper/CustomColors.dart';
 import 'package:mydrive/Helper/CustomLeadingIcon.dart';
 import 'package:mydrive/LoginAndRegister/RegisterNew.dart';
@@ -13,14 +14,15 @@ import 'package:mydrive/LoginAndRegister/ResetPassword.dart';
 import 'package:mydrive/ProfileFeature/ProfileScreen.dart';
 import 'package:mydrive/Settings/settings.dart';
 
-class ChatDetails extends StatefulWidget {
-  const ChatDetails({Key key}) : super(key: key);
+class ChatList extends StatefulWidget {
+  const ChatList({Key key}) : super(key: key);
 
   @override
-  State<ChatDetails> createState() => _ChatDetailsState();
+  State<ChatList> createState() => _ChatListState();
 }
 
-class _ChatDetailsState extends State<ChatDetails> {
+class _ChatListState extends State<ChatList> {
+  int _bottomnavigatorbarindex = 3;
   TextEditingController _msgcontroller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _ishidden = true;
@@ -37,23 +39,22 @@ class _ChatDetailsState extends State<ChatDetails> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.person, color: Colors.grey),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("abhinav@gmail.com"),
+        title: Text("LOGO HERE"),
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChatList()));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => SharedAllPhotos()));
               },
-              child: Center(
-                child: Container(
-                  margin: EdgeInsets.only(right: 5),
-                  child: Text("All Photos"),
-                ),
+              child: IconButton(
+                icon: Icon(Icons.search, color: Colors.grey),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShowFilesFolder())),
               ),
             ),
           ),
@@ -68,103 +69,53 @@ class _ChatDetailsState extends State<ChatDetails> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 20,
-              ),
-
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                alignment: Alignment.centerRight,
-                width: MediaQuery.of(context).size.width,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                      ),
-                      color: Colors.blue.shade100),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        "Hello",
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        "16:09",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(fontSize: 9, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              SizedBox(
-                height: 10,
-              ),
-              Form(
-                key: _formKey,
-                child: Card(
-                  elevation: 10,
-                  child: TextFormField(
-                    controller: _msgcontroller,
-                    style: TextStyle(color: Colors.black),
-                    validator: (value) {
-                      if (value.trim().isEmpty) {
-                        return "Message is required";
-                      }
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Say Something",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(width * 0.01),
-                        borderSide: BorderSide(
-                          color: CustomColors().mygreencolorshade600,
-                          width: 2,
-                          // style: borderStyle,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(width * 0.01),
-                        borderSide: BorderSide(
-                          color: CustomColors().mygreencolorshade600,
-                          width: 2,
-                          // style: borderStyle,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            _formKey.currentState.save();
-                            // if all are valid then go to success screen
-                            // KeyboardUtil.hideKeyboard(context);
-
-                          }
-                        },
-                        icon: Icon(
-                          Icons.send,
-                          color: CustomColors().mygreencolorshade600,
-                        ),
-                      ),
-                      /*   prefixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add_a_photo,
-                        color: CustomColors().mygreencolorshade600,
-                      ),
-                    ),*/
+                  //  margin: EdgeInsets.symmetric(vertical: width * 0.1),
+                  child: Text(
+                    "Shared",
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: width * 0.06),
                     ),
                   ),
                 ),
               ),
+
+              ListView.builder(
+                // padding: EdgeInsets.only(left: 20, right: 20),
+                shrinkWrap: true,
+
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 7,
+                itemBuilder: (buildContext, index) {
+                  return Card(
+                    elevation: 10,
+                    child: ListTile(
+                      onTap: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             SharedChatScreen(
+                        //                 userlist[index].email,
+                        //                 userlist[index].token)));
+                      },
+                      leading: CustomLeadingIcon()
+                          .customLeadingIcon(icon: Icons.person, width: width),
+                      title: Text(
+                        "abcd@gmail.com",
+                        style: GoogleFonts.lato(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Icon(Icons.cancel),
+                    ),
+                  );
+                },
+              )
               // GestureDetector(
               //   onTap: () async {
               //     final storage = new FlutterSecureStorage();
@@ -194,6 +145,43 @@ class _ChatDetailsState extends State<ChatDetails> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: FFNavigationBar(
+        theme: FFNavigationBarTheme(
+          barBackgroundColor: Theme.of(context).primaryColor,
+          selectedItemBorderColor: Colors.blue.shade100,
+          selectedItemBackgroundColor: Colors.blue.shade600,
+          selectedItemIconColor: Colors.white,
+          selectedItemLabelColor: Theme.of(context).accentColor,
+        ),
+        selectedIndex: _bottomnavigatorbarindex,
+        onSelectTab: (index) {
+          setState(() {
+            _bottomnavigatorbarindex = index;
+          });
+        },
+        items: [
+          FFNavigationBarItem(
+            iconData: Icons.add,
+            label: 'Add',
+          ),
+          FFNavigationBarItem(
+            iconData: Icons.library_books,
+            label: 'Library',
+          ),
+          FFNavigationBarItem(
+            iconData: Icons.timelapse_rounded,
+            label: 'Recent',
+          ),
+          FFNavigationBarItem(
+            iconData: Icons.people,
+            label: 'Shared',
+          ),
+          FFNavigationBarItem(
+            iconData: Icons.file_present,
+            label: 'Files',
+          ),
+        ],
       ),
     );
   }
