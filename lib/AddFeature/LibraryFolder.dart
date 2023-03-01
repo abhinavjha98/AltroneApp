@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:mydrive/AddFeature/showsarchive.dart';
 import 'package:mydrive/FilesFeature/PhotoScreen.dart';
 import 'package:mydrive/Helper/CustomColors.dart';
 import 'package:mydrive/Helper/CustomLeadingIcon.dart';
@@ -15,14 +14,14 @@ import 'package:mydrive/LoginAndRegister/ResetPassword.dart';
 import 'package:mydrive/ProfileFeature/ProfileScreen.dart';
 import 'package:mydrive/Settings/settings.dart';
 
-class ShowFilesFolder extends StatefulWidget {
-  const ShowFilesFolder({Key key}) : super(key: key);
+class LibraryFolder extends StatefulWidget {
+  const LibraryFolder({Key key}) : super(key: key);
 
   @override
-  State<ShowFilesFolder> createState() => _ShowFilesFolderState();
+  State<LibraryFolder> createState() => _LibraryFolderState();
 }
 
-class _ShowFilesFolderState extends State<ShowFilesFolder> {
+class _LibraryFolderState extends State<LibraryFolder> {
   int _bottomnavigatorbarindex = 3;
   TextEditingController _msgcontroller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -49,8 +48,8 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ShowArchive()));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => SharedAllPhotos()));
               },
               child: IconButton(
                 icon: Icon(Icons.search, color: Colors.grey),
@@ -68,68 +67,44 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  //  margin: EdgeInsets.symmetric(vertical: width * 0.1),
-                  child: Text(
-                    "Files",
-                    style: GoogleFonts.lato(
-                      textStyle: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: width * 0.06),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    //  margin: EdgeInsets.symmetric(vertical: width * 0.1),
+                    child: Text(
+                      "Library",
+                      style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: width * 0.06),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              GridView.count(
-                  shrinkWrap: true,
-                  childAspectRatio: 1.2,
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  children: [
-                    Card(
-                      elevation: 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomLeadingIcon().customLeadingIcon(
-                              width: width, icon: Icons.note),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Document",
-                            style: GoogleFonts.lato(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PhotoScreen()));
-                      },
-                      child: Card(
+                GridView.count(
+                    shrinkWrap: true,
+                    childAspectRatio: 1.2,
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    children: [
+                      Card(
                         elevation: 5,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomLeadingIcon().customLeadingIcon(
-                                width: width, icon: Icons.photo),
+                                width: width, icon: Icons.favorite),
                             SizedBox(
                               height: 5,
                             ),
                             Text(
-                              "Photo",
+                              "Favorites",
                               style: GoogleFonts.lato(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -137,47 +112,93 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
                           ],
                         ),
                       ),
-                    ),
-                    Card(
-                      elevation: 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomLeadingIcon().customLeadingIcon(
-                              width: width, icon: Icons.video_collection),
-                          SizedBox(
-                            height: 5,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PhotoScreen()));
+                        },
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomLeadingIcon().customLeadingIcon(
+                                  width: width, icon: Icons.archive),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "Archive",
+                                style: GoogleFonts.lato(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
                           ),
-                          Text(
-                            "Video",
-                            style: GoogleFonts.lato(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                    Card(
-                      elevation: 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomLeadingIcon().customLeadingIcon(
-                              width: width, icon: Icons.file_copy),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Others",
-                            style: GoogleFonts.lato(
-                              fontWeight: FontWeight.bold,
+                      Card(
+                        elevation: 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomLeadingIcon().customLeadingIcon(
+                                width: width, icon: Icons.delete),
+                            SizedBox(
+                              height: 5,
                             ),
-                          )
-                        ],
+                            Text(
+                              "Trash",
+                              style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ]),
-            ],
+                      Card(
+                        elevation: 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomLeadingIcon().customLeadingIcon(
+                                width: width, icon: Icons.file_copy),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Albumns  ",
+                              style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Card(
+                        elevation: 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.folder,
+                              color: Colors.grey,
+                              size: width * 0.2,
+                            ),
+                            Text(
+                              "AB ",
+                              style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ]),
+              ],
+            ),
           ),
         ),
       ),

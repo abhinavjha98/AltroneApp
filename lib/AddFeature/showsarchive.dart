@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:mydrive/AddFeature/showsarchive.dart';
+import 'package:mydrive/AddFeature/LibraryFolder.dart';
 import 'package:mydrive/FilesFeature/PhotoScreen.dart';
 import 'package:mydrive/Helper/CustomColors.dart';
 import 'package:mydrive/Helper/CustomLeadingIcon.dart';
@@ -15,14 +15,14 @@ import 'package:mydrive/LoginAndRegister/ResetPassword.dart';
 import 'package:mydrive/ProfileFeature/ProfileScreen.dart';
 import 'package:mydrive/Settings/settings.dart';
 
-class ShowFilesFolder extends StatefulWidget {
-  const ShowFilesFolder({Key key}) : super(key: key);
+class ShowArchive extends StatefulWidget {
+  const ShowArchive({Key key}) : super(key: key);
 
   @override
-  State<ShowFilesFolder> createState() => _ShowFilesFolderState();
+  State<ShowArchive> createState() => _ShowArchiveState();
 }
 
-class _ShowFilesFolderState extends State<ShowFilesFolder> {
+class _ShowArchiveState extends State<ShowArchive> {
   int _bottomnavigatorbarindex = 3;
   TextEditingController _msgcontroller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -50,7 +50,7 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ShowArchive()));
+                    MaterialPageRoute(builder: (context) => LibraryFolder()));
               },
               child: IconButton(
                 icon: Icon(Icons.search, color: Colors.grey),
@@ -77,7 +77,7 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
                 child: Container(
                   //  margin: EdgeInsets.symmetric(vertical: width * 0.1),
                   child: Text(
-                    "Files",
+                    "Library",
                     style: GoogleFonts.lato(
                       textStyle: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: width * 0.06),
@@ -98,12 +98,12 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomLeadingIcon().customLeadingIcon(
-                              width: width, icon: Icons.note),
+                              width: width, icon: Icons.favorite),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
-                            "Document",
+                            "Favorites",
                             style: GoogleFonts.lato(
                               fontWeight: FontWeight.bold,
                             ),
@@ -124,12 +124,12 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomLeadingIcon().customLeadingIcon(
-                                width: width, icon: Icons.photo),
+                                width: width, icon: Icons.archive),
                             SizedBox(
                               height: 5,
                             ),
                             Text(
-                              "Photo",
+                              "Archive",
                               style: GoogleFonts.lato(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -144,12 +144,12 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomLeadingIcon().customLeadingIcon(
-                              width: width, icon: Icons.video_collection),
+                              width: width, icon: Icons.delete),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
-                            "Video",
+                            "Trash",
                             style: GoogleFonts.lato(
                               fontWeight: FontWeight.bold,
                             ),
@@ -168,7 +168,7 @@ class _ShowFilesFolderState extends State<ShowFilesFolder> {
                             height: 5,
                           ),
                           Text(
-                            "Others",
+                            "Albumns  ",
                             style: GoogleFonts.lato(
                               fontWeight: FontWeight.bold,
                             ),
