@@ -188,7 +188,7 @@ class _LibraryFolderState extends State<LibraryFolder> {
                               size: width * 0.2,
                             ),
                             Text(
-                              "AB ",
+                              "A ",
                               style: GoogleFonts.lato(
                                 fontWeight: FontWeight.bold,
                               ),
